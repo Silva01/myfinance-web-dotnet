@@ -42,5 +42,22 @@ namespace myfinance_web_netcore.Services.PlanoContaService
 
             return lista;
         }
+
+        public PlanoContaModel ObterPlanoContaPorId(int Id)
+        {
+            var planoConta = _planoContaRepository.RetornarRegistro(Id);
+            var planoContaModel = new PlanoContaModel() {
+                Id = planoConta.Id,
+                Descricao = planoConta.Descricao,
+                Tipo = planoConta.Tipo
+            };
+
+            return planoContaModel;
+        }
+
+        public void RemoverPorId(int id)
+        {
+            _planoContaRepository.Excluir(id);
+        }
     }
 }

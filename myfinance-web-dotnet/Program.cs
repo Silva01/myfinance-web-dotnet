@@ -1,11 +1,13 @@
 using myfinance_web_netcore;
-using myfinance_web_netcore.Application.CadastrarPlanoContaUseCase;
+using myfinance_web_netcore.Application.PlanoConta.CadastrarPlanoContaUseCase;
 using myfinance_web_netcore.Application.Interfaces;
-using myfinance_web_netcore.Application.ObterPlanoContaUseCase;
+using myfinance_web_netcore.Application.PlanoConta.ObterPlanoContaUseCase;
 using myfinance_web_netcore.Repository.Interfaces;
 using myfinance_web_netcore.Repository.Repositories;
 using myfinance_web_netcore.Services.Interfaces;
 using myfinance_web_netcore.Services.PlanoContaService;
+using myfinance_web_netcore.Application.PlanoConta.ObterPlanoContaPorIdUseCase;
+using myfinance_web_netcore.Application.PlanoConta.RemoverPlanoContaUseCase;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,8 @@ builder.Services.AddScoped<IPlanoContaService, PlanoContaService>();
 // use case
 builder.Services.AddScoped<IObterPlanoContaUseCase, ObterPlanoContaUseCase>();
 builder.Services.AddScoped<ICadastrarPlanoContaUseCase, CadastrarPlanoContaUseCase>();
+builder.Services.AddScoped<IObterPlanoContaPorIdUseCase, ObterPlanoContaPorIdUseCase>();
+builder.Services.AddScoped<IRemovePlanoContaPorId, RemoverPlanoContaUseCase>();
 
 
 var app = builder.Build();

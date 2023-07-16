@@ -2,7 +2,7 @@ using myfinance_web_netcore.Application.Interfaces;
 using myfinance_web_netcore.Models;
 using myfinance_web_netcore.Services.Interfaces;
 
-namespace myfinance_web_netcore.Application.CadastrarPlanoContaUseCase
+namespace myfinance_web_netcore.Application.PlanoConta.CadastrarPlanoContaUseCase
 {
     public class CadastrarPlanoContaUseCase : ICadastrarPlanoContaUseCase
     {

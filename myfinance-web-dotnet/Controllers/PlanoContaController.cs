@@ -1,8 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using myfinance_web_netcore.Application.CadastrarPlanoContaUseCase;
 using myfinance_web_netcore.Application.Interfaces;
-using myfinance_web_netcore.Domain;
 using myfinance_web_netcore.Models;
 
 namespace myfinance_web_netcore.Controllers
@@ -12,23 +10,27 @@ namespace myfinance_web_netcore.Controllers
     {
         private readonly ILogger<PlanoContaController> _logger;
 
-        private readonly MyFinanceDbContext _myFinanceDbContext;
-
         private readonly IObterPlanoContaUseCase _obterPlanoContaUseCase;
+
+        private readonly IObterPlanoContaPorIdUseCase _obterPlanoContaPorIdUseCase;
 
         private readonly ICadastrarPlanoContaUseCase _cadastrarPlanoContaUseCase;
 
+        private readonly IRemovePlanoContaPorId _removePlanoConta;
+
         public PlanoContaController(ILogger<PlanoContaController> logger,
-                                    MyFinanceDbContext myFinanceDbContext,
                                     IObterPlanoContaUseCase obterPlanoContaUseCase,
-                                    ICadastrarPlanoContaUseCase cadastrarPlanoContaUseCase)
+                                    ICadastrarPlanoContaUseCase cadastrarPlanoContaUseCase,
+                                    IObterPlanoContaPorIdUseCase obterPlanoContaPorIdUseCase,
+                                    IRemovePlanoContaPorId removePlanoConta)
         {
-            _myFinanceDbContext = myFinanceDbContext;
 
             _logger = logger;
 
             _obterPlanoContaUseCase = obterPlanoContaUseCase;
             _cadastrarPlanoContaUseCase = cadastrarPlanoContaUseCase;
+            _obterPlanoContaPorIdUseCase = obterPlanoContaPorIdUseCase;
+            _removePlanoConta = removePlanoConta;
         }
 
         public IActionResult Index()
@@ -42,16 +44,7 @@ namespace myfinance_web_netcore.Controllers
         [Route("Cadastro/{id}")]
         public IActionResult Cadastro(int? id)
         {
-
-            var planoConta = new PlanoContaModel();
-
-            if  (id != null){
-                var planoContaDomain = _myFinanceDbContext.PlanoConta.Where(x => x.Id == id).FirstOrDefault();
-                planoConta.Id = planoContaDomain.Id;
-                planoConta.Descricao = planoContaDomain.Descricao;
-                planoConta.Tipo = planoContaDomain.Tipo;
-            }
-
+            var planoConta = _obterPlanoContaPorIdUseCase.GetPlanoConta(id);
             return View(planoConta);
         }
 
@@ -68,9 +61,7 @@ namespace myfinance_web_netcore.Controllers
         [Route("Excluir/{id}")]
         public IActionResult Excluir(int id)
         {
-            var planoConta = new PlanoConta() { Id = id };
-            _myFinanceDbContext.PlanoConta.Remove(planoConta);
-            _myFinanceDbContext.SaveChanges();
+            _removePlanoConta.Excluir(id);
             return RedirectToAction("Index");
         }
        
