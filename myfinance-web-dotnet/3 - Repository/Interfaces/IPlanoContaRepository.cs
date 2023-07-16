@@ -2,9 +2,8 @@ using myfinance_web_netcore.Domain;
 
 namespace myfinance_web_netcore.Repository.Interfaces
 {
-    public interface IPlanoContaRepository
+    public interface IPlanoContaRepository : IRepository<PlanoConta>
     {
-        List<PlanoConta> PlanoContas();
-        void CadastrarPlanoConta(PlanoConta input);
+       
     }
 }

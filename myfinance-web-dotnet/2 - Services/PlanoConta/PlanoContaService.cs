@@ -22,14 +22,14 @@ namespace myfinance_web_netcore.Services.PlanoContaService
                 Tipo = input.Tipo
             };
 
-            _planoContaRepository.CadastrarPlanoConta(planoConta);
+            _planoContaRepository.Cadastrar(planoConta);
         }
 
         public List<PlanoContaModel> ListaPlanoContaModel()
         {
             var lista = new List<PlanoContaModel>();
 
-            foreach(var item in _planoContaRepository.PlanoContas())
+            foreach(var item in _planoContaRepository.ListarRegistros())
             {
                 var planoContaModel = new PlanoContaModel(){
                     Id = item.Id,

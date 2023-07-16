@@ -3,9 +3,8 @@ using myfinance_web_netcore.Models;
 
 namespace myfinance_web_netcore.Domain
 {
-    public class Transacao
+    public class Transacao : EntityBase
     {
-       public int? Id { get; set; }
         public DateTime Data { get; set; }
         public decimal Valor { get; set; }
         public string? Historico { get; set; }
