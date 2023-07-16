@@ -12,17 +12,17 @@ namespace myfinance_web_netcore.Controllers
 
         private readonly IObterPlanoContaUseCase _obterPlanoContaUseCase;
 
-        private readonly IObterPlanoContaPorIdUseCase _obterPlanoContaPorIdUseCase;
+        private readonly IObterPorIdPlanoContaUseCase _obterPlanoContaPorIdUseCase;
 
         private readonly ICadastrarPlanoContaUseCase _cadastrarPlanoContaUseCase;
 
-        private readonly IRemovePlanoContaPorId _removePlanoConta;
+        private readonly IRemovePlanoContaUseCase _removePlanoConta;
 
         public PlanoContaController(ILogger<PlanoContaController> logger,
                                     IObterPlanoContaUseCase obterPlanoContaUseCase,
                                     ICadastrarPlanoContaUseCase cadastrarPlanoContaUseCase,
-                                    IObterPlanoContaPorIdUseCase obterPlanoContaPorIdUseCase,
-                                    IRemovePlanoContaPorId removePlanoConta)
+                                    IObterPorIdPlanoContaUseCase obterPlanoContaPorIdUseCase,
+                                    IRemovePlanoContaUseCase removePlanoConta)
         {
 
             _logger = logger;

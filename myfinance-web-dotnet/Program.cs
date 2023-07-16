@@ -25,9 +25,12 @@ builder.Services.AddScoped<IPlanoContaService, PlanoContaService>();
 
 // use case
 builder.Services.AddScoped<IObterPlanoContaUseCase, ObterPlanoContaUseCase>();
+
 builder.Services.AddScoped<ICadastrarPlanoContaUseCase, CadastrarPlanoContaUseCase>();
-builder.Services.AddScoped<IObterPlanoContaPorIdUseCase, ObterPlanoContaPorIdUseCase>();
-builder.Services.AddScoped<IRemovePlanoContaPorId, RemoverPlanoContaUseCase>();
+
+builder.Services.AddScoped<IObterPorIdPlanoContaUseCase, ObterPlanoContaPorIdUseCase>();
+
+builder.Services.AddScoped<IRemovePlanoContaUseCase, RemoverPlanoContaUseCase>();
 
 
 var app = builder.Build();

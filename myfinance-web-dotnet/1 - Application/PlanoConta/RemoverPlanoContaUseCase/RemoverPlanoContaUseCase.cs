@@ -6,7 +6,7 @@ using myfinance_web_netcore.Services.Interfaces;
 
 namespace myfinance_web_netcore.Application.PlanoConta.RemoverPlanoContaUseCase
 {
-    public class RemoverPlanoContaUseCase : IRemovePlanoContaPorId
+    public class RemoverPlanoContaUseCase : IRemovePlanoContaUseCase
     {
 
         private readonly IPlanoContaService _planoContaService;

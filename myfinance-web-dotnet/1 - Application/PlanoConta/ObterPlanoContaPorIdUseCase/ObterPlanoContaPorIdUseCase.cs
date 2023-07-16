@@ -4,7 +4,7 @@ using myfinance_web_netcore.Services.Interfaces;
 
 namespace myfinance_web_netcore.Application.PlanoConta.ObterPlanoContaPorIdUseCase
 {
-    public class ObterPlanoContaPorIdUseCase : IObterPlanoContaPorIdUseCase
+    public class ObterPlanoContaPorIdUseCase : IObterPorIdPlanoContaUseCase
     {
         private readonly IPlanoContaService _planoContaService;
 

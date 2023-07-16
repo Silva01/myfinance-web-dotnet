@@ -3,8 +3,8 @@ using myfinance_web_netcore.Models;
 
 namespace myfinance_web_netcore.Application.Interfaces
 {
-    public interface IObterPlanoContaPorIdUseCase 
+    public interface IObterPorIdPlanoContaUseCase : IObterPorIdUseCase<PlanoContaModel>
     {
-        PlanoContaModel GetPlanoConta(int? id);
+     
     }
 }
