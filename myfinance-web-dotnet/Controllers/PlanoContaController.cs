@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using myfinance_web_netcore.Application.CadastrarPlanoContaUseCase;
+using myfinance_web_netcore.Application.Interfaces;
 using myfinance_web_netcore.Domain;
 using myfinance_web_netcore.Models;
 
@@ -12,34 +14,26 @@ namespace myfinance_web_netcore.Controllers
 
         private readonly MyFinanceDbContext _myFinanceDbContext;
 
+        private readonly IObterPlanoContaUseCase _obterPlanoContaUseCase;
+
+        private readonly ICadastrarPlanoContaUseCase _cadastrarPlanoContaUseCase;
+
         public PlanoContaController(ILogger<PlanoContaController> logger,
-                                    MyFinanceDbContext myFinanceDbContext )
+                                    MyFinanceDbContext myFinanceDbContext,
+                                    IObterPlanoContaUseCase obterPlanoContaUseCase,
+                                    ICadastrarPlanoContaUseCase cadastrarPlanoContaUseCase)
         {
             _myFinanceDbContext = myFinanceDbContext;
 
             _logger = logger;
+
+            _obterPlanoContaUseCase = obterPlanoContaUseCase;
+            _cadastrarPlanoContaUseCase = cadastrarPlanoContaUseCase;
         }
 
         public IActionResult Index()
         {
-
-            var listaPlanoContas = _myFinanceDbContext.PlanoConta;
-
-            var listaPlanoContaModel = new List<PlanoContaModel>();
-
-            foreach(var item in listaPlanoContas){
-                var planoContaModel = new PlanoContaModel()
-                {
-                    Id = item.Id,
-                    Descricao = item.Descricao,
-                    Tipo = item.Tipo
-                };
-
-                listaPlanoContaModel.Add(planoContaModel);
-            }
-
-            ViewBag.listaPlanoConta = listaPlanoContaModel;
-
+            ViewBag.listaPlanoConta = _obterPlanoContaUseCase.GetListaPlanoContaModel();
             return View();
         }
 
@@ -66,21 +60,7 @@ namespace myfinance_web_netcore.Controllers
         [Route("Cadastro/{id}")]
         public IActionResult Cadastro(PlanoContaModel input)
         {
-            var planoConta = new PlanoConta(){
-                Id = input.Id,
-                Descricao = input.Descricao,
-                Tipo = input.Tipo
-            };
-
-            if(planoConta.Id == null){
-                _myFinanceDbContext.PlanoConta.Add(planoConta);
-            }else{
-                _myFinanceDbContext.PlanoConta.Attach(planoConta);
-                _myFinanceDbContext.Entry(planoConta).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            }
-
-            _myFinanceDbContext.SaveChanges();
-
+            _cadastrarPlanoContaUseCase.CadastrarPlanoConta(input);
             return RedirectToAction("Index");
         }
 

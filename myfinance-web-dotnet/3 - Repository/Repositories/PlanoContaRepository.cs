@@ -13,6 +13,18 @@ namespace myfinance_web_netcore.Repository.Repositories
             _myFinanceDbContext = myFinanceDbContext;
         }
 
+        public void CadastrarPlanoConta(PlanoConta planoConta)
+        {
+            if(planoConta.Id == null){
+                _myFinanceDbContext.PlanoConta.Add(planoConta);
+            }else{
+                _myFinanceDbContext.PlanoConta.Attach(planoConta);
+                _myFinanceDbContext.Entry(planoConta).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            }
+
+            _myFinanceDbContext.SaveChanges();
+        }
+
         public List<PlanoConta> PlanoContas()
         {
             return _myFinanceDbContext.PlanoConta.ToList();

@@ -16,7 +16,7 @@ namespace myfinance_web_netcore.Application.ObterPlanoContaUseCase
             _planoContaService = planoContaService;
         }
 
-        List<PlanoContaModel> IObterPlanoContaUseCase.GetListaPlanoContaModel()
+        public List<PlanoContaModel> GetListaPlanoContaModel()
         {
             return _planoContaService.ListaPlanoContaModel();
         }

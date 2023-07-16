@@ -1,4 +1,11 @@
 using myfinance_web_netcore;
+using myfinance_web_netcore.Application.CadastrarPlanoContaUseCase;
+using myfinance_web_netcore.Application.Interfaces;
+using myfinance_web_netcore.Application.ObterPlanoContaUseCase;
+using myfinance_web_netcore.Repository.Interfaces;
+using myfinance_web_netcore.Repository.Repositories;
+using myfinance_web_netcore.Services.Interfaces;
+using myfinance_web_netcore.Services.PlanoContaService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +14,17 @@ builder.Services.AddControllersWithViews();
 
 // Add DbContext PlanoConta
 builder.Services.AddDbContext<MyFinanceDbContext>();
+
+// Repositories
+builder.Services.AddScoped<IPlanoContaRepository, PlanoContaRepository>();
+
+// services
+builder.Services.AddScoped<IPlanoContaService, PlanoContaService>();
+
+// use case
+builder.Services.AddScoped<IObterPlanoContaUseCase, ObterPlanoContaUseCase>();
+builder.Services.AddScoped<ICadastrarPlanoContaUseCase, CadastrarPlanoContaUseCase>();
+
 
 var app = builder.Build();
 
